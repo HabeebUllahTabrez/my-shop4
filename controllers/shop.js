@@ -79,6 +79,7 @@ exports.postOrder = (req, res, next) => {
     req.user
         .populate("cart.items.productId")
         .then((user) => {
+            // transforming the products object before storing it in orders
             const products = user.cart.items.map((i) => {
                 return {
                     quantity: i.quantity,
