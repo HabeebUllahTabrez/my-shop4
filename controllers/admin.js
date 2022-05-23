@@ -14,6 +14,7 @@ exports.postAddProduct = (req, res, next) => {
     const price = req.body.price;
     const description = req.body.description;
     const userId = req.user._id;
+
     const product = new Product({
         title,
         price,
@@ -21,6 +22,7 @@ exports.postAddProduct = (req, res, next) => {
         imageUrl,
         userId,
     });
+
     product
         .save()
         .then((result) => {
@@ -75,6 +77,8 @@ exports.postEditProduct = (req, res, next) => {
 
 exports.getProducts = (req, res, next) => {
     Product.find()
+        // .select("title price -_id")
+        // .populate("userId", "name")
         .then((products) => {
             res.render("admin/products", {
                 prods: products,
